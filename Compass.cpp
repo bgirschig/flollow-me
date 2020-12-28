@@ -6,7 +6,7 @@
 #include <Arduino_LSM9DS1.h>
 
 Compass::Compass() {
-  heading = 0;
+  compassHeading = 0;
 }
 
 void Compass::begin() {
@@ -32,10 +32,11 @@ void Compass::update() {
     magnetic_field.set(x, y, z);
     magnetic_field.map(min_magnetometer, max_magnetometer, -1, 1);
     magnetic_field.normalize();
+    magnetic_field.set(magnetic_field.y, -magnetic_field.x, magnetic_field.z);
 
     // update the 'up' vector
     IMU.readAcceleration(x, y, z);
-    up.set(x, y, z);
+    up.set(y, x, z);
     up.normalize();
 
     // update the north vector
@@ -45,17 +46,25 @@ void Compass::update() {
       magnetic_field.y - magneticUpComponent * up.y,
       magnetic_field.z - magneticUpComponent * up.z
     );
-    north.x = -north.x;
     north.normalize();
 
     // update east vector
-    east = Vector::vectProduct(up, north);
+    east = Vector::vectProduct(north, up);
+
+    float boatUpComponent = Vector::dotProduct(boat, up);
+    headingVector.set(
+      boat.x - boatUpComponent * up.x,
+      boat.y - boatUpComponent * up.y,
+      boat.z - boatUpComponent * up.z
+    );
+    headingVector.normalize();
 
     // update heading
-    float boatNorthComponent = Vector::dotProduct(boat, north);
-    float boatEastComponent = Vector::dotProduct(boat, east);
-    heading = atan2(boatEastComponent, boatNorthComponent);
-    Serial.println(heading / M_PI * 180.0);
+    float headingNorthComponent = Vector::dotProduct(headingVector, north);
+    float headingEastComponent = Vector::dotProduct(headingVector, east);
+
+    compassHeading = atan2(headingEastComponent, headingNorthComponent);
+    Serial.println(compassHeading / M_PI * 180.0);
   }
 }
 
@@ -70,5 +79,5 @@ void Compass::updateBounds(float x, float y, float z) {
 }
 
 String Compass::toString() {
-  return String() + "<Compass:"+magnetic_field.toString()+","+heading+">";
+  return String() + "<Compass:"+magnetic_field.toString()+","+compassHeading+">";
 }

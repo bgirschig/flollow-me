@@ -10,7 +10,7 @@
 class Compass {
   public:
     Compass();
-    float heading = 0;
+    float compassHeading = 0;
 
     void begin();
     void end();
@@ -26,7 +26,8 @@ class Compass {
     Vector north {0,0,0};
     Vector east {0,0,0};
 
-    Vector boat {1,0,0};
+    Vector boat {0,1,0};
+    Vector headingVector {0,0,0};
 
     void updateBounds(float x, float y, float z);
 };
