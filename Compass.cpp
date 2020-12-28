@@ -64,7 +64,6 @@ void Compass::update() {
     float headingEastComponent = Vector::dotProduct(headingVector, east);
 
     compassHeading = atan2(headingEastComponent, headingNorthComponent);
-    Serial.println(compassHeading / M_PI * 180.0);
   }
 }
 
