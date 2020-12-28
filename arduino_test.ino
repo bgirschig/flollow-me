@@ -2,21 +2,20 @@
 #include "Compass.h"
 #include "status_codes.h"
 #include "Blinker.h"
+#include "Pilot.h"
 
 #define BUTTON_PIN 2
 
 int status_code;
-bool autopilot_on = false;
 
 unsigned long frame = 0;
 int last_button_state = 0;
-float targetHeading = 0;
 
-Compass compass;
+Pilot pilot;
 Blinker statusBlinker(400, 1000, LED_BUILTIN);
 
 void setup() {
-  compass.begin();
+  pilot.begin();
   setStatusCode(OK);
   pinMode(BUTTON_PIN, INPUT);
 }
@@ -27,39 +26,23 @@ void setStatusCode(int value) {
 }
 
 void loop() {
-  frame += 1;
-  statusBlinker.update();
   if (status_code != OK) return;
+  frame += 1;
+  
+  // Update objets
+  statusBlinker.update();
+  pilot.update();
 
-  compass.update();
-
-  updatePilotState();
-  if (!autopilot_on) return;
-
-  if (frame%100 == 0) {
-    float headingError = compass.compassHeading - targetHeading;
-    Serial.print(headingError / M_PI * 180.0);
-    Serial.print(",");
-    if (headingError > M_PI) headingError = headingError - M_PI*2.0;
-    else if (headingError < -M_PI) headingError = headingError + M_PI*2.0;
-
-    Serial.print(headingError / M_PI * 180.0);
-    Serial.print("\n");
-  }
-}
-
-void updatePilotState() {
+  // Check if we should toggle the pilot on/off
   int buttonInput = digitalRead(BUTTON_PIN);
   if (last_button_state != buttonInput) {
-    if (buttonInput == 1 && autopilot_on == false) {
-      autopilot_on = true;
-      targetHeading = compass.compassHeading;
-      // Serial.println(String() + "turning pilot on, target: " + targetHeading);
-    }
-    else if (buttonInput == 0 && autopilot_on == true) {
-      autopilot_on = false;
-      // Serial.println(String() + "turning pilot off");
-    }
+    if (buttonInput == 1 && !pilot.is_on) pilot.startTracking();
+    else if (buttonInput == 0 && pilot.is_on) pilot.stopTracking();
   }
   last_button_state = buttonInput;
+
+  if (frame%100 == 0) {
+    Serial.print(pilot.headingError / M_PI * 180.0);
+    Serial.print("\n");
+  }
 }
