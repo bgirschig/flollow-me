@@ -35,10 +35,6 @@ void BTS7960::setSpeed(float speed) {
   if (speed > 0) left_pwm = int(speed * 255);
   else right_pwm = int(-speed * 255);
 
-  if (Serial.ready()) {
-    Serial.println(String() + left_pwm_pin + "," + left_pwm + "," + right_pwm_pin + "," + right_pwm);
-  }
-
   // apply pwm
   analogWrite(left_pwm_pin, left_pwm);
   analogWrite(right_pwm_pin, right_pwm);
