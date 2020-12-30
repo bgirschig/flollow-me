@@ -62,7 +62,6 @@ void Compass::update() {
     // update heading
     float headingNorthComponent = Vector::dotProduct(headingVector, north);
     float headingEastComponent = Vector::dotProduct(headingVector, east);
-
     compassHeading = atan2(headingEastComponent, headingNorthComponent);
   }
 }

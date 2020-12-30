@@ -1,5 +1,3 @@
-/* Reads data from an IMU sensor and computes a compass heading from it */
-
 #ifndef Compass_h
 #define Compass_h
 

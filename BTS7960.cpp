@@ -1,3 +1,9 @@
+/**
+ * Control a motor using the BTS7960-based motor controller
+ * based on the BTS7960 half bridge modules
+ * datasheet: https://content.instructables.com/ORIG/FYD/V3VU/HUL8W2ZW/FYDV3VUHUL8W2ZW.pdf
+ */
+
 #include "Arduino.h"
 #include "BTS7960.h"
 

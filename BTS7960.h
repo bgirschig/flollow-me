@@ -1,6 +1,3 @@
-
-// https://content.instructables.com/ORIG/FYD/V3VU/HUL8W2ZW/FYDV3VUHUL8W2ZW.pdf
-
 #ifndef BTS7960_h
 #define BTS7960_h
 

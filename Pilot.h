@@ -1,5 +1,3 @@
-/* Computes distance to a target heading */
-
 #ifndef Pilot_h
 #define Pilot_h
 

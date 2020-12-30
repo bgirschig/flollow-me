@@ -1,3 +1,5 @@
+/* LED blinker for displaying codes (a number of flashes) with an LED */
+
 #include "Arduino.h"
 #include "Blinker.h"
 
