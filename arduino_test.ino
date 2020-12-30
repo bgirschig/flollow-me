@@ -3,6 +3,7 @@
 #include "status_codes.h"
 #include "Blinker.h"
 #include "Pilot.h"
+#include "BTS7960.h"
 
 #define BUTTON_PIN 2
 
@@ -13,10 +14,12 @@ int last_button_state = 0;
 float target_frame_interval = 1000.0 / 120.0;
 
 Pilot pilot;
+BTS7960 legoMotor;
 Blinker statusBlinker(400, 1000, LED_BUILTIN);
 
 void setup() {
   pilot.begin();
+  legoMotor.begin(3, 4, 5, 6);
   setStatusCode(OK);
   pinMode(BUTTON_PIN, INPUT);
   next_frame_time = millis();
@@ -46,4 +49,12 @@ void loop() {
     else if (buttonInput == 0 && pilot.is_on) pilot.stopTracking();
   }
   last_button_state = buttonInput;
+
+  // update motor speed
+  if (pilot.is_on) {
+    float speed = pilot.headingError * RAD_TO_DEG / 180.0;
+    legoMotor.setSpeed(speed);
+  } else {
+    legoMotor.setSpeed(0);
+  }
 }
