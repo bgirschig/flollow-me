@@ -1,6 +1,6 @@
 /* Computes distance to a target heading */
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Pilot.h"
 #include "Compass.h"
 

@@ -1,7 +1,7 @@
 #ifndef Compass_h
 #define Compass_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Vector.h"
 #include "Utils.h"
 

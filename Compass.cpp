@@ -1,6 +1,6 @@
 /* Reads data from an IMU sensor and computes a compass heading from it */
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Compass.h"
 #include "Utils.h"
 #include <Arduino_LSM9DS1.h>

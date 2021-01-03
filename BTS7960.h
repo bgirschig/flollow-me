@@ -1,7 +1,7 @@
 #ifndef BTS7960_h
 #define BTS7960_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 class BTS7960 {
   public:

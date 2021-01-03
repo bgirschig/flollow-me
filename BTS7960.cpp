@@ -4,7 +4,7 @@
  * datasheet: https://content.instructables.com/ORIG/FYD/V3VU/HUL8W2ZW/FYDV3VUHUL8W2ZW.pdf
  */
 
-#include "Arduino.h"
+#include <arduino.h>
 #include "BTS7960.h"
 
 void BTS7960::begin(int left_pwm_pin, int right_pwm_pin, int left_enable_pin, int right_enable_pin) {

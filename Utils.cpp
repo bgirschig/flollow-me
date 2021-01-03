@@ -1,6 +1,6 @@
 /* collection of generic utilities (math, etc...) */
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Utils.h"
 
 void Utils::exitMainLoop() {

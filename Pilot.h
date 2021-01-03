@@ -1,7 +1,7 @@
 #ifndef Pilot_h
 #define Pilot_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Compass.h"
 
 class Pilot {

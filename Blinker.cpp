@@ -1,6 +1,6 @@
 /* LED blinker for displaying codes (a number of flashes) with an LED */
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Blinker.h"
 
 Blinker::Blinker(int flash_duration, int pause_duration, int pin) {
