@@ -1,6 +1,6 @@
 {
     "board": "arduino:mbed:nano33ble",
     "port": "/dev/tty.usbmodem14201",
-    "sketch": "arduino_test.ino",
+    "sketch": "arduino_pilot.ino",
     "output": "./build"
 }
