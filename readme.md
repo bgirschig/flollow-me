@@ -35,3 +35,40 @@ Motor controller fail | The pilot cannot function at all | Critical | Backup mot
 Logic failure | Erratic rudder control | Catastrophic | "panic button", phisically disconnects electric pump
 Bad wire connection | Erratic rudder control | Catastrophic | "panic button", phisically disconnects electric pump
 Short circuit | Fire | Catastrophic | Fuse, BTS7960 protection, temp sensor + alarm (?)
+
+
+## CSYS
+The inertial sensor and the magnetometer do not have the same coord systems... se we correct them and create our own CSYS:
+x is in the Arduino card plan, transversal, pointing right if you have USB plug towards yourself 
+y is in the Arduino card plan, longitudinal, pointing towards the side opposite to the USB plug 
+z is perpendicular to the Arduino card, towards the top
+x y z is a base orthonormee, right handed (standard) 
+
+
+
+## Tips and tricks 
+Serial.println(pilot.headingError*180/M_PI);
+
+    Serial.print(pilot.headingError*180/M_PI);
+    Serial.print(",");
+    Serial.print(-90);
+    Serial.print(",");
+    Serial.print(90);
+    Serial.print("\n");
+
+
+## Connections Arduino Vs motor controller 
+Arduino - motor controller
+D3 LPWM
+D4 RPWM
+D5 L_EN
+D6 R_EN
+GND GND
+3V3 VCC 
+Motor controller L_IS R_IS are not connected 
+
+## Arduino Vs start button
+Arduino D2 connected to Vin -> pilot ON 
+Arduino D2 connected to GND -> pilot OFF 
+(D2 always connected to GND through 10kOhm resistance, and connected to Vin by switch to be ON)
+
