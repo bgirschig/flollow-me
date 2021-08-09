@@ -19,8 +19,10 @@ BTS7960 legoMotor;
 Blinker statusBlinker(400, 1000, LED_BUILTIN);
 BlePilot blePilot;
 
+bool serialStarted = false;
 
 void setup() {
+  Serial.begin(9600);
   pilot.begin();
   legoMotor.begin(3, 4, 5, 6);
   blePilot.begin();
@@ -35,8 +37,17 @@ void setStatusCode(int value) {
   statusBlinker.set_flash_count(value);
 }
 
+void onSerialStart() {
+  Serial.println("v3");
+}
+
 void loop() {
   if (status_code != OK) return;
+
+  if (Serial && !serialStarted) {
+    onSerialStart();
+    serialStarted = true;
+  }
 
   // throttle main loop
   unsigned long now = millis();
