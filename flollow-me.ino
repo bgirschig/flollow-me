@@ -4,6 +4,7 @@
 #include "Blinker.h"
 #include "Pilot.h"
 #include "BTS7960.h"
+#include "BlePilot.h"
 
 #define BUTTON_PIN 2
 
@@ -16,10 +17,14 @@ float target_frame_interval = 1000.0 / 120.0;
 Pilot pilot;
 BTS7960 legoMotor;
 Blinker statusBlinker(400, 1000, LED_BUILTIN);
+BlePilot blePilot;
+
 
 void setup() {
   pilot.begin();
   legoMotor.begin(3, 4, 5, 6);
+  blePilot.begin();
+
   setStatusCode(OK);
   pinMode(BUTTON_PIN, INPUT);
   next_frame_time = millis();
@@ -41,6 +46,7 @@ void loop() {
   // Update objets
   statusBlinker.update();
   pilot.update();
+  blePilot.update();
 
   // Check if we should toggle the pilot on/off
   int buttonInput = digitalRead(BUTTON_PIN);
