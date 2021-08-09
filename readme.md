@@ -1,6 +1,9 @@
 # `Flo`llow-me
 An arduino-based autopilot for Flo
 
+to fix intellisense issues (`missing include pinnames.h`, or similar) add the following to includepaths in c_cpp_properties.json
+/Users/bastienGirschig/Library/Arduino15/packages/arduino/hardware/mbed_nano/2.3.1/cores/arduino/mbed/**
+
 ## Sensing
 We take advantage of the intergated sensors in the arduino sense, we can determine the current
 heading:
