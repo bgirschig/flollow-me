@@ -1,10 +1,6 @@
 #ifndef RollingArray_h
 #define RollingArray_h
 
-#include <iostream>
-#include <string>
-#include <sstream>
-
 class RollingArray {
   public:
     RollingArray(int alloc_size);
@@ -16,7 +12,6 @@ class RollingArray {
     
     float get(int index);
     void append(float value);
-    std::string toString();
 
   private:
     int alloc_size;

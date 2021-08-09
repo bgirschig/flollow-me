@@ -29,15 +29,3 @@ void RollingArray::append(float value) {
   sum = sum + value - values[target_idx];
   values[target_idx] = value;
 }
-
-std::string RollingArray::toString() {
-  std::stringstream output;
-
-  output << "array(size:" << size << " sum:" << sum << ")";
-  
-  output << " [";
-  for (int i = 0; i < size; i++) output << get(i) << ",";
-  output << "]\n";
-
-  return output.str();
-}
